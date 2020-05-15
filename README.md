@@ -22,7 +22,7 @@ NOTE : If you want to contribute don't hesitate, I'll review any PR.
 Name | Version
 -----|--------
 [php](https://secure.php.net/) | >=5.3.3
-[zendframework/zend-mvc](https://github.com/zendframework/zend-mvc) | 3.*
+[laminas/laminas-mvc](https://github.com/laminas/laminas-mvc) | 3.*
 [mobiledetect/mobiledetectlib](https://github.com/serbanghita/Mobile-Detect) | 2.*
 
 # Pages

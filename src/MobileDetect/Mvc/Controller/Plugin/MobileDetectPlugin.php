@@ -1,7 +1,7 @@
 <?php
 namespace Neilime\MobileDetect\Mvc\Controller\Plugin;
 
-use Zend\Mvc\Controller\Plugin\AbstractPlugin;
+use Laminas\Mvc\Controller\Plugin\AbstractPlugin;
 
 class MobileDetectPlugin extends AbstractPlugin
 {
@@ -21,21 +21,31 @@ class MobileDetectPlugin extends AbstractPlugin
     /**
      * Retrieve Mobile-detect service
      *
-     * @param \Zend\Http\Headers $oHeaders
+     * @param \Laminas\Http\Headers $oHeaders
      *
      * @throws \LogicException
      * @return \Mobile_Detect
      */
-    public function __invoke(\Zend\Http\Headers $oHeaders = null)
+    public function __invoke(?\Laminas\Http\Headers $oHeaders = null)
     {
         $oController = $this->getController();
         if (!$oController) {
             throw new \LogicException('Controller is undefined for MobileDetect controller plugin');
         }
 
-        if ($oHeaders) {
+        if ($oHeaders !== null) {
             $this->mobileDetect->setHttpHeaders($oHeaders->toArray());
-            $this->mobileDetect->setUserAgent($oHeaders->get('user-agent')->getFieldValue());
+			
+			$userAgentObj = $oHeaders->get('user-agent');
+			
+			if ($userAgentObj instanceof \Laminas\Http\Header\HeaderInterface)
+			{
+				$this->mobileDetect->setUserAgent($userAgentObj->getFieldValue());
+			}		
+            else if ($userAgentObj instanceof \ArrayIterator)
+			{
+				$this->mobileDetect->setUserAgent($userAgentObj[0]->getFieldValue());
+			}
         }
 
         return $this->mobileDetect;

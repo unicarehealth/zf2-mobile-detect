@@ -4,7 +4,7 @@ error_reporting(E_ALL | E_STRICT);
 chdir(__DIR__);
 class Bootstrap{
     /**
-     * @var \Zend\ServiceManager\ServiceManager
+     * @var \Laminas\ServiceManager\ServiceManager
      */
 	protected static $serviceManager;
 
@@ -26,7 +26,7 @@ class Bootstrap{
         static::initAutoloader();
 
         //Use ModuleManager to load this module and it's dependencies
-        static::$config = \Zend\Stdlib\ArrayUtils::merge(array(
+        static::$config = \Laminas\Stdlib\ArrayUtils::merge(array(
             'module_listener_options' => array(
                 'module_paths' => array_merge(
                 	$aZf2ModulePaths,
@@ -35,9 +35,9 @@ class Bootstrap{
             )
         ),$aTestConfig);
 
-        $smConfig = new \Zend\Mvc\Service\ServiceManagerConfig(static::$config);
+        $smConfig = new \Laminas\Mvc\Service\ServiceManagerConfig(static::$config);
 
-        $serviceManager = new \Zend\ServiceManager\ServiceManager();
+        $serviceManager = new \Laminas\ServiceManager\ServiceManager();
         $smConfig->configureServiceManager($serviceManager);
         $serviceManager->setService('ApplicationConfig', static::$config);
         $serviceManager->get('ModuleManager')->loadModules();
@@ -46,7 +46,7 @@ class Bootstrap{
     }
 
     /**
-     * @return \Zend\ServiceManager\ServiceManager
+     * @return \Laminas\ServiceManager\ServiceManager
      */
     public static function getServiceManager(){
         return static::$serviceManager;
@@ -72,8 +72,8 @@ class Bootstrap{
             if(!$sZf2Path)throw new \RuntimeException('Unable to load ZF2. Run `php composer.phar install` or define a ZF2_PATH environment variable.');
             include $sZf2Path . '/Zend/Loader/AutoloaderFactory.php';
         }
-        \Zend\Loader\AutoloaderFactory::factory(array(
-            'Zend\Loader\StandardAutoloader' => array(
+        \Laminas\Loader\AutoloaderFactory::factory(array(
+            'Laminas\Loader\StandardAutoloader' => array(
                 'autoregister_zf' => true,
                 'namespaces' => array(
                     __NAMESPACE__ => __DIR__ . '/' . __NAMESPACE__,

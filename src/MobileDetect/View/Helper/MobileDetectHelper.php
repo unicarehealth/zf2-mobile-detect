@@ -1,7 +1,7 @@
 <?php
 namespace Neilime\MobileDetect\View\Helper;
 
-use Zend\View\Helper\AbstractHelper;
+use Laminas\View\Helper\AbstractHelper;
 
 class MobileDetectHelper extends AbstractHelper
 {
@@ -21,15 +21,25 @@ class MobileDetectHelper extends AbstractHelper
     /**
      * Retrieve Mobile-detect service
      *
-     * @param \Zend\Http\Headers $oHeaders
+     * @param \Laminas\Http\Headers $oHeaders
      *
      * @return \Mobile_Detect
      */
-    public function __invoke(\Zend\Http\Headers $oHeaders = null)
+    public function __invoke(?\Laminas\Http\Headers $oHeaders = null)
     {
-        if ($oHeaders) {
+        if ($oHeaders !== null) {
             $this->mobileDetect->setHttpHeaders($oHeaders->toArray());
-            $this->mobileDetect->setUserAgent($oHeaders->get('user-agent')->getFieldValue());
+			
+			$userAgentObj = $oHeaders->get('user-agent');
+			
+			if ($userAgentObj instanceof \Laminas\Http\Header\HeaderInterface)
+			{
+				$this->mobileDetect->setUserAgent($userAgentObj->getFieldValue());
+			}		
+            else if ($userAgentObj instanceof \ArrayIterator)
+			{
+				$this->mobileDetect->setUserAgent($userAgentObj[0]->getFieldValue());
+			}			
         }
 
         return $this->mobileDetect;

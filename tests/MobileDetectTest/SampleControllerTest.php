@@ -2,7 +2,7 @@
 namespace Neilime\MobileDetectTest\Mvc\Controller;
 use Neilime\MobileDetect\Mvc\Controller\Plugin\MobileDetectPlugin;
 
-class SampleControllerTest extends \Zend\Test\PHPUnit\Controller\AbstractHttpControllerTestCase{
+class SampleControllerTest extends \Laminas\Test\PHPUnit\Controller\AbstractHttpControllerTestCase{
 	/**
 	 * @see PHPUnit_Framework_TestCase::setUp()
 	 */
@@ -33,7 +33,7 @@ class SampleControllerTest extends \Zend\Test\PHPUnit\Controller\AbstractHttpCon
 		$oSampleController->setServiceLocator(\Neilime\MobileDetectTest\Bootstrap::getServiceManager());
 		$oMobileDetectPlugin->setController($oSampleController);
 		$this->assertInstanceOf('\Mobile_Detect',$oMobileDetect = $oMobileDetectPlugin->__invoke(
-			\Zend\Http\Headers::fromString('User-Agent: Mozilla/5.0 (Linux; Android 4.0.4; Desire HD Build/IMM76D) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.166 Mobile Safari/535.19')
+			\Laminas\Http\Headers::fromString('User-Agent: Mozilla/5.0 (Linux; Android 4.0.4; Desire HD Build/IMM76D) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.166 Mobile Safari/535.19')
 		));
 		$this->assertTrue($oMobileDetect->isAndroidOS());
 	}
@@ -46,7 +46,7 @@ class SampleControllerTest extends \Zend\Test\PHPUnit\Controller\AbstractHttpCon
 	public function testMobileDetectViewHelperWithCustomHttpHeaders(){
 		$this->assertInstanceOf('\Neilime\MobileDetect\View\Helper\MobileDetectHelper',$oMobileDetectHelper = $this->getApplicationServiceLocator()->get('ViewHelperManager')->get('mobileDetect'));
 		$this->assertInstanceOf('\Mobile_Detect',$oMobileDetect = $oMobileDetectHelper->__invoke(
-			\Zend\Http\Headers::fromString('User-Agent: Mozilla/5.0 (Linux; Android 4.0.4; Desire HD Build/IMM76D) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.166 Mobile Safari/535.19')
+			\Laminas\Http\Headers::fromString('User-Agent: Mozilla/5.0 (Linux; Android 4.0.4; Desire HD Build/IMM76D) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.166 Mobile Safari/535.19')
 		));
 		$this->assertTrue($oMobileDetect->isAndroidOS());
 	}

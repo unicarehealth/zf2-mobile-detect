@@ -2,7 +2,12 @@
     "name": "neilime/zf2-mobile-detect",
     "type": "library",
     "description": "Zend Framework module that provides Mobile-Detect features",
-    "keywords": ["Zend Framework","mobile", "mobile detect","Mobile-Detect"],
+    "keywords": [
+        "Zend Framework",
+        "mobile",
+        "mobile detect",
+        "Mobile-Detect"
+    ],
     "homepage": "https://github.com/neilime/zf2-mobile-detect",
     "license": "MIT",
     "authors": [
@@ -15,27 +20,34 @@
     "support": {
         "issues": "https://github.com/neilime/zf2-mobile-detect/issues"
     },
-    "minimum-stability" : "stable",
+    "minimum-stability": "stable",
     "require": {
         "php": ">=5.6",
-        "zendframework/zend-mvc": "^2.7 || ^3.0",
+        "laminas/laminas-mvc": "^2.7 || ^3.0",
         "mobiledetect/mobiledetectlib": "2.*.*",
-        "container-interop/container-interop": "^1.1"
+        "container-interop/container-interop": "^1.1",
+        "laminas/laminas-dependency-plugin": "^1.0"
     },
     "require-dev": {
-        "zendframework/zend-test": "3.*.*",
+        "laminas/laminas-test": "3.*.*",
         "phpunit/phpunit": "5.*.*",
-        "satooshi/php-coveralls": "1.*.* || 2.*.*"
+        "satooshi/php-coveralls": "1.*.* || 2.*.*",
+		"phpstan/phpstan": "dev-master"
     },
     "autoload": {
         "psr-4": {
-            "Neilime\\MobileDetect\\": "src"
+            "Neilime\\": "src"
         },
-        "classmap" : ["Module.php"]
+        "classmap": [
+            "Module.php"
+        ]
     },
     "extra": {
         "branch-alias": {
             "dev-master": "1.0-dev"
         }
+    },
+	"scripts": {
+        "phpstan": "phpstan analyse src/ -c phpstan.neon --level=7 --no-progress -vvv --memory-limit=2G"
     }
 }

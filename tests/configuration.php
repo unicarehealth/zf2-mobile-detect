@@ -2,7 +2,7 @@
 return [
   'controllers'        => [
       'abstract_factories' => [
-          \Zend\Mvc\Controller\LazyControllerAbstractFactory::class,
+          \Laminas\Mvc\Controller\LazyControllerAbstractFactory::class,
       ],
   ],
 ];

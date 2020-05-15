@@ -1,6 +1,6 @@
 <?php
 namespace Neilime\MobileDetectTest\Mvc\Controller;
-class SampleController extends \Zend\Mvc\Controller\AbstractActionController{
+class SampleController extends \Laminas\Mvc\Controller\AbstractActionController{
     protected $serviceLocator;
 
     /**
